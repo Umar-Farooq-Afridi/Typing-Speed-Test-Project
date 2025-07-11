@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Typing Speed</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Typing Speed Test</h1>
+        <button class="theme-toggle">Light Theme</button>
+    </header>
+
+    <!-- Settings -->
+    <div class="settings">
+        <label for="difficulty">Difficulty:</label>
+        <select class="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <button class="reset-button">Reset</button>
+    </div>
+
+    <!-- Sentence Display -->
+    <div class="sentence-display">
+        <p class="sentence-display-text">
+            <!-- Sentence will be inserted here by JS -->
+        </p>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+        <textarea class="input-box" placeholder="Start typing here..." autofocus autocomplete="off"
+            spellcheck="true"></textarea>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="typing-statistics">
+        <div>Time: <span class="timer">00:00</span></div>
+        <div>WPM: <span class="wpm">0</span></div>
+        <div>Accuracy: <span class="accuracy">100%</span></div>
+        <div>Mistakes: <span class="mistakes">0</span></div>
+    </div>
+
+    <!-- High Score -->
+    <div class="high-score">
+        <h3>High Score</h3>
+        <p>
+            WPM: <span class="high-wpm">--</span> |
+            Accuracy: <span class="high-accuracy">--%</span>
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Typing Speed Test Project – Built with HTML, CSS & JavaScript</p>
+    </footer>
+
+</body>
+
+</html>
