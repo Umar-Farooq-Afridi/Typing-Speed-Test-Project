@@ -27,6 +27,11 @@ function getSentence() {
     return sentence;
 }
 
-document.querySelector('.js-reset-button').addEventListener('click', ()=> {
+document.querySelector('.js-reset-button').addEventListener('click', () => {
+    displaySentence();
+});
+
+
+document.querySelector('.js-difficulty-level').addEventListener('change', () => {
     displaySentence();
 });
