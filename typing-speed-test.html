@@ -29,7 +29,7 @@
 
 
     <div class="sentence-display">
-        <p class="sentence-display-text">
+        <p class="sentence-display-text js-sentence-text-display">
             <!-- Sentence will be inserted here by JS -->
         </p>
     </div>
@@ -86,8 +86,9 @@
         ];
 
         const randomSentence = getSentence();
-        console.log(randomSentence);
-        
+
+        document.querySelector('.js-sentence-text-display').innerHTML = randomSentence;
+
         function getSentence() {
             const difficultyLevel = document.querySelector('.js-difficulty-level').value;
 
