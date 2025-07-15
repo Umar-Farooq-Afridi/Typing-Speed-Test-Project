@@ -18,7 +18,7 @@
     </header>
 
     <div class="settings">
-        <label for="difficulty">Difficulty:</label>
+        <label for="difficulty">Difficulty Level:</label>
         <select class="difficulty js-difficulty-level">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
@@ -37,15 +37,15 @@
 
 
     <div class="input-area">
-        <textarea class="input-box" placeholder="Start typing here..." autofocus autocomplete="off"
+        <textarea class="input-box js-input-box" placeholder="Start typing here..." autofocus autocomplete="off"
             spellcheck="true"></textarea>
     </div>
 
     <div class="typing-statistics">
-        <div>Time: <span class="timer">00:00</span></div>
-        <div>WPM: <span class="wpm">0</span></div>
-        <div>Accuracy: <span class="accuracy">100%</span></div>
-        <div>Mistakes: <span class="mistakes">0</span></div>
+        <div>Time: <span class="timer js-timer">00:00</span></div>
+        <div>WPM: <span class="wpm js-wpm">0</span></div>
+        <div>Accuracy: <span class="accuracy js-text-accuracy"></span></div>
+        <div>Mistakes: <span class="mistakes js-text-mistakes"></span></div>
     </div>
 
     <div class="high-score">
