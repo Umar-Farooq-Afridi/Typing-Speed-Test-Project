@@ -6,6 +6,7 @@ function displaySentence() {
     sentence = getSentence();
     document.querySelector('.js-sentence-text-display').innerHTML = sentence;
     document.querySelector('.js-input-box').value = '';
+    document.querySelector('.js-input-box').disabled = false;
 
     document.querySelector('.js-text-mistakes').textContent = 0;
     document.querySelector('.js-text-accuracy').textContent = `${100}%`;
@@ -25,14 +26,26 @@ document.querySelector('.js-difficulty-level').addEventListener('change', () => 
 
 const inputField = document.querySelector('.js-input-box');
 
+let correctWords = 0;
+let accuracy = 100;
+
+let timerStarted = false;
+let timerLeft = 60;
+let timer;
+
 inputField.addEventListener('input', () => {
+    if (!timerStarted) {
+        timerStarted = true;
+        startTimer();
+    }
+
     const typed = inputField.value;
 
-    const typedWords = typed.trim().split(/\s+/); // split by ANY space
+    const typedWords = typed.trim().split(/\s+/);
     const sentenceWords = sentence.trim().split(/\s+/);
 
-    let correctWords = 0;
     let mistakes = 0;
+    correctWords = 0;
 
     for (let i = 0; i < typedWords.length; i++) {
         if (typedWords[i] === sentenceWords[i]) {
@@ -45,7 +58,6 @@ inputField.addEventListener('input', () => {
 
     const totalTyped = typedWords.length;
 
-    let accuracy;
     if (totalTyped > 0) {
         accuracy = ((correctWords / totalTyped) * 100).toFixed(2);
     }
@@ -62,3 +74,28 @@ inputField.addEventListener('input', () => {
     document.querySelector('.js-text-mistakes').textContent = mistakes;
     document.querySelector('.js-text-accuracy').textContent = `${accuracy}%`;
 });
+
+function startTimer() {
+    timer = setInterval(() => {
+        timerLeft--;
+        updateTimerDisplay();
+
+        if (timerLeft === 0) {
+            clearInterval(timer);
+            inputField.disabled = true;
+            displayWPM();
+        }
+
+    }, 1000);
+
+    updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+    document.querySelector('.js-timer').textContent = `00:${timerLeft < 10 ? '0' + timerLeft : timerLeft}`;
+}
+
+function displayWPM() {
+    const wpm = Math.round(correctWords);
+    document.querySelector('.js-wpm').innerHTML = wpm;
+}
