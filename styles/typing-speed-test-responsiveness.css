@@ -9,7 +9,7 @@
     }
 
     .theme-toggle {
-        height: 35px;
-        margin-top: 1px;
+        position: absolute;
+        top: 21px;
     }
 }
