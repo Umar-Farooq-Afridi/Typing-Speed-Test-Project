@@ -2,14 +2,4 @@
     .header h1 {
         font-size: 20px;
     }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .theme-toggle {
-        position: absolute;
-        top: 21px;
-    }
 }
