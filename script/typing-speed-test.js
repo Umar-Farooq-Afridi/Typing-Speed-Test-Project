@@ -98,4 +98,31 @@ function updateTimerDisplay() {
 function displayWPM() {
     const wpm = Math.round(correctWords);
     document.querySelector('.js-wpm').innerHTML = wpm;
+    
+    calculateHighScores(wpm);
+}
+
+function calculateHighScores(wpm) {
+    const highWPM = localStorage.getItem('highWPMScore');
+    const highAccuracy = localStorage.getItem('highAccuracyScore');
+
+    const numericAccuracy = Number(accuracy);
+
+    if (!highWPM || wpm > Number(highWPM)) {
+        localStorage.setItem('highWPMScore', wpm);
+    }
+
+    if (!highAccuracy || numericAccuracy > Number(highAccuracy)) {
+        localStorage.setItem('highAccuracyScore', numericAccuracy);
+    }
+
+    displayHighScores();
+}
+
+function displayHighScores() {
+    const highWPM = localStorage.getItem('highWPMScore') ?? '--';
+    const highAccuracy = localStorage.getItem('highAccuracyScore') ?? '--';
+
+    document.querySelector('.js-high-wpm').textContent = highWPM;
+    document.querySelector('.js-high-accuracy').textContent = `${highAccuracy}%`;
 }
