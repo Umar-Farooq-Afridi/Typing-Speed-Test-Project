@@ -1,37 +1,41 @@
 import { getSentence } from "../data/typing-speed-test-data.js";
 
+let timerLeft = 60;
+let timerStarted = false;
+let timer;
+
 let sentence = getSentence();
-
-function displaySentence() {
-    sentence = getSentence();
-    document.querySelector('.js-sentence-text-display').innerHTML = sentence;
-    document.querySelector('.js-input-box').value = '';
-    document.querySelector('.js-input-box').disabled = false;
-
-    document.querySelector('.js-text-mistakes').textContent = 0;
-    document.querySelector('.js-text-accuracy').textContent = `${100}%`;
-}
-
-displaySentence();
-
-document.querySelector('.js-reset-button').addEventListener('click', () => {
-    displaySentence();
-});
-
-
-document.querySelector('.js-difficulty-level').addEventListener('change', () => {
-    displaySentence();
-});
-
-
-const inputField = document.querySelector('.js-input-box');
+let inputField = document.querySelector('.js-input-box');
 
 let correctWords = 0;
 let accuracy = 100;
 
-let timerStarted = false;
-let timerLeft = 60;
-let timer;
+function resetStatistics(timerLeft) {
+    document.querySelector('.js-timer').innerHTML = `00:${timerLeft}`;
+    document.querySelector('.js-wpm').innerHTML = 0;
+    document.querySelector('.js-text-mistakes').innerHTML = 0;
+    document.querySelector('.js-text-accuracy').innerHTML = `100%`;
+}
+
+function displaySentence() {
+    clearInterval(timer);
+    timerStarted = false;
+    timerLeft = 60;
+
+    sentence = getSentence();
+    correctWords = 0;
+    accuracy = 100;
+
+    document.querySelector('.js-sentence-text-display').innerHTML = sentence;
+    inputField.value = '';
+    inputField.disabled = false;
+
+    resetStatistics(timerLeft);
+}
+
+displaySentence();
+displayHighScores();
+
 
 inputField.addEventListener('input', () => {
     if (!timerStarted) {
@@ -40,7 +44,6 @@ inputField.addEventListener('input', () => {
     }
 
     const typed = inputField.value;
-
     const typedWords = typed.trim().split(/\s+/);
     const sentenceWords = sentence.trim().split(/\s+/);
 
@@ -50,8 +53,7 @@ inputField.addEventListener('input', () => {
     for (let i = 0; i < typedWords.length; i++) {
         if (typedWords[i] === sentenceWords[i]) {
             correctWords++;
-        }
-        else {
+        } else {
             mistakes++;
         }
     }
@@ -60,8 +62,7 @@ inputField.addEventListener('input', () => {
 
     if (totalTyped > 0) {
         accuracy = ((correctWords / totalTyped) * 100).toFixed(2);
-    }
-    else {
+    } else {
         accuracy = 100;
     }
 
@@ -70,9 +71,17 @@ inputField.addEventListener('input', () => {
         accuracy = 100;
     }
 
-
     document.querySelector('.js-text-mistakes').textContent = mistakes;
     document.querySelector('.js-text-accuracy').textContent = `${accuracy}%`;
+});
+
+
+document.querySelector('.js-reset-button').addEventListener('click', () => {
+    displaySentence();
+});
+
+document.querySelector('.js-difficulty-level').addEventListener('change', () => {
+    displaySentence();
 });
 
 function startTimer() {
@@ -85,7 +94,6 @@ function startTimer() {
             inputField.disabled = true;
             displayWPM();
         }
-
     }, 1000);
 
     updateTimerDisplay();
@@ -98,7 +106,7 @@ function updateTimerDisplay() {
 function displayWPM() {
     const wpm = Math.round(correctWords);
     document.querySelector('.js-wpm').innerHTML = wpm;
-    
+
     calculateHighScores(wpm);
 }
 
@@ -120,8 +128,8 @@ function calculateHighScores(wpm) {
 }
 
 function displayHighScores() {
-    const highWPM = localStorage.getItem('highWPMScore') ?? '--';
-    const highAccuracy = localStorage.getItem('highAccuracyScore') ?? '--';
+    const highWPM = localStorage.getItem('highWPMScore') ?? '0';
+    const highAccuracy = localStorage.getItem('highAccuracyScore') ?? '0.00';
 
     document.querySelector('.js-high-wpm').textContent = highWPM;
     document.querySelector('.js-high-accuracy').textContent = `${highAccuracy}%`;
