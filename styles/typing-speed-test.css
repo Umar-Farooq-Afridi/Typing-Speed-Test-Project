@@ -122,7 +122,8 @@ body {
     background-color: #f5f8fa;
     padding: 10px;
     border-radius: 6px;
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
 }
 
 .footer {
